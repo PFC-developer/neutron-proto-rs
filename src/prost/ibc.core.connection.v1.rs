@@ -77,7 +77,7 @@ impl ::prost::Name for IdentifiedConnection {
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Counterparty {
     /// identifies the client on the counterparty chain associated with a given
     /// connection.
@@ -102,7 +102,7 @@ impl ::prost::Name for Counterparty {
     }
 }
 /// ClientPaths define all the connection paths for a client state.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ClientPaths {
     /// list of connection paths
     #[prost(string, repeated, tag = "1")]
@@ -119,7 +119,7 @@ impl ::prost::Name for ClientPaths {
     }
 }
 /// ConnectionPaths define all the connection paths for a given client state.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConnectionPaths {
     /// client state unique identifier
     #[prost(string, tag = "1")]
@@ -144,7 +144,7 @@ impl ::prost::Name for ConnectionPaths {
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Version {
     /// unique version identifier
     #[prost(string, tag = "1")]
@@ -164,7 +164,7 @@ impl ::prost::Name for Version {
     }
 }
 /// Params defines the set of Connection parameters.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Params {
     /// maximum expected time per block (in nanoseconds), used to enforce block delay. This parameter should reflect the
     /// largest amount of time that the chain might reasonably take to produce the next block under normal operating
@@ -246,7 +246,7 @@ impl ::prost::Name for GenesisState {
 }
 /// MsgConnectionOpenInit defines the msg sent by an account on Chain A to
 /// initialize a connection with Chain B.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConnectionOpenInit {
     #[prost(string, tag = "1")]
     pub client_id: ::prost::alloc::string::String,
@@ -271,7 +271,7 @@ impl ::prost::Name for MsgConnectionOpenInit {
 }
 /// MsgConnectionOpenInitResponse defines the Msg/ConnectionOpenInit response
 /// type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConnectionOpenInitResponse {}
 impl ::prost::Name for MsgConnectionOpenInitResponse {
     const NAME: &'static str = "MsgConnectionOpenInitResponse";
@@ -303,8 +303,7 @@ pub struct MsgConnectionOpenTry {
     pub counterparty_versions: ::prost::alloc::vec::Vec<Version>,
     #[prost(message, optional, tag = "7")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    /// proof of the initialization the connection on Chain A: `UNITIALIZED ->
-    /// INIT`
+    /// proof of the initialization the connection on Chain A: `UNITIALIZED ->  INIT`
     #[prost(bytes = "vec", tag = "8")]
     pub proof_init: ::prost::alloc::vec::Vec<u8>,
     /// proof of client state included in message
@@ -332,7 +331,7 @@ impl ::prost::Name for MsgConnectionOpenTry {
     }
 }
 /// MsgConnectionOpenTryResponse defines the Msg/ConnectionOpenTry response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConnectionOpenTryResponse {}
 impl ::prost::Name for MsgConnectionOpenTryResponse {
     const NAME: &'static str = "MsgConnectionOpenTryResponse";
@@ -346,7 +345,7 @@ impl ::prost::Name for MsgConnectionOpenTryResponse {
 }
 /// MsgConnectionOpenAck defines a msg sent by a Relayer to Chain A to
 /// acknowledge the change of connection state to TRYOPEN on Chain B.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq,  ::prost::Message)]
 pub struct MsgConnectionOpenAck {
     #[prost(string, tag = "1")]
     pub connection_id: ::prost::alloc::string::String,
@@ -358,8 +357,7 @@ pub struct MsgConnectionOpenAck {
     pub client_state: ::core::option::Option<::tendermint_proto::google::protobuf::Any>,
     #[prost(message, optional, tag = "5")]
     pub proof_height: ::core::option::Option<super::super::client::v1::Height>,
-    /// proof of the initialization the connection on Chain B: `UNITIALIZED ->
-    /// TRYOPEN`
+    /// proof of the initialization the connection on Chain B: `UNITIALIZED ->  TRYOPEN`
     #[prost(bytes = "vec", tag = "6")]
     pub proof_try: ::prost::alloc::vec::Vec<u8>,
     /// proof of client state included in message
@@ -387,7 +385,7 @@ impl ::prost::Name for MsgConnectionOpenAck {
     }
 }
 /// MsgConnectionOpenAckResponse defines the Msg/ConnectionOpenAck response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConnectionOpenAckResponse {}
 impl ::prost::Name for MsgConnectionOpenAckResponse {
     const NAME: &'static str = "MsgConnectionOpenAckResponse";
@@ -401,7 +399,7 @@ impl ::prost::Name for MsgConnectionOpenAckResponse {
 }
 /// MsgConnectionOpenConfirm defines a msg sent by a Relayer to Chain B to
 /// acknowledge the change of connection state to OPEN on Chain A.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConnectionOpenConfirm {
     #[prost(string, tag = "1")]
     pub connection_id: ::prost::alloc::string::String,
@@ -425,7 +423,7 @@ impl ::prost::Name for MsgConnectionOpenConfirm {
 }
 /// MsgConnectionOpenConfirmResponse defines the Msg/ConnectionOpenConfirm
 /// response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConnectionOpenConfirmResponse {}
 impl ::prost::Name for MsgConnectionOpenConfirmResponse {
     const NAME: &'static str = "MsgConnectionOpenConfirmResponse";
@@ -438,7 +436,7 @@ impl ::prost::Name for MsgConnectionOpenConfirmResponse {
     }
 }
 /// MsgUpdateParams defines the sdk.Msg type to update the connection parameters.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateParams {
     /// signer address
     #[prost(string, tag = "1")]
@@ -460,7 +458,7 @@ impl ::prost::Name for MsgUpdateParams {
     }
 }
 /// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
 impl ::prost::Name for MsgUpdateParamsResponse {
     const NAME: &'static str = "MsgUpdateParamsResponse";
@@ -582,7 +580,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Msg/ConnectionOpenInit",
             );
@@ -609,7 +607,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Msg/ConnectionOpenTry",
             );
@@ -636,7 +634,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Msg/ConnectionOpenAck",
             );
@@ -664,7 +662,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Msg/ConnectionOpenConfirm",
             );
@@ -695,7 +693,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Msg/UpdateConnectionParams",
             );
@@ -875,7 +873,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionOpenInitSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -918,7 +916,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionOpenTrySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -961,7 +959,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionOpenAckSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1006,7 +1004,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionOpenConfirmSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1049,7 +1047,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpdateConnectionParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1106,7 +1104,7 @@ pub mod msg_server {
 }
 /// QueryConnectionRequest is the request type for the Query/Connection RPC
 /// method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionRequest {
     /// connection unique identifier
     #[prost(string, tag = "1")]
@@ -1149,7 +1147,7 @@ impl ::prost::Name for QueryConnectionResponse {
 }
 /// QueryConnectionsRequest is the request type for the Query/Connections RPC
 /// method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionsRequest {
     #[prost(message, optional, tag = "1")]
     pub pagination: ::core::option::Option<
@@ -1194,7 +1192,7 @@ impl ::prost::Name for QueryConnectionsResponse {
 }
 /// QueryClientConnectionsRequest is the request type for the
 /// Query/ClientConnections RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryClientConnectionsRequest {
     /// client identifier associated with a connection
     #[prost(string, tag = "1")]
@@ -1212,7 +1210,7 @@ impl ::prost::Name for QueryClientConnectionsRequest {
 }
 /// QueryClientConnectionsResponse is the response type for the
 /// Query/ClientConnections RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryClientConnectionsResponse {
     /// slice of all the connection paths associated with a client.
     #[prost(string, repeated, tag = "1")]
@@ -1236,7 +1234,7 @@ impl ::prost::Name for QueryClientConnectionsResponse {
 }
 /// QueryConnectionClientStateRequest is the request type for the
 /// Query/ConnectionClientState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionClientStateRequest {
     /// connection identifier
     #[prost(string, tag = "1")]
@@ -1254,7 +1252,7 @@ impl ::prost::Name for QueryConnectionClientStateRequest {
 }
 /// QueryConnectionClientStateResponse is the response type for the
 /// Query/ConnectionClientState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq,  ::prost::Message)]
 pub struct QueryConnectionClientStateResponse {
     /// client state associated with the channel
     #[prost(message, optional, tag = "1")]
@@ -1280,7 +1278,7 @@ impl ::prost::Name for QueryConnectionClientStateResponse {
 }
 /// QueryConnectionConsensusStateRequest is the request type for the
 /// Query/ConnectionConsensusState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionConsensusStateRequest {
     /// connection identifier
     #[prost(string, tag = "1")]
@@ -1302,7 +1300,7 @@ impl ::prost::Name for QueryConnectionConsensusStateRequest {
 }
 /// QueryConnectionConsensusStateResponse is the response type for the
 /// Query/ConnectionConsensusState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq,  ::prost::Message)]
 pub struct QueryConnectionConsensusStateResponse {
     /// consensus state associated with the channel
     #[prost(message, optional, tag = "1")]
@@ -1330,7 +1328,7 @@ impl ::prost::Name for QueryConnectionConsensusStateResponse {
     }
 }
 /// QueryConnectionParamsRequest is the request type for the Query/ConnectionParams RPC method.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionParamsRequest {}
 impl ::prost::Name for QueryConnectionParamsRequest {
     const NAME: &'static str = "QueryConnectionParamsRequest";
@@ -1343,7 +1341,7 @@ impl ::prost::Name for QueryConnectionParamsRequest {
     }
 }
 /// QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
@@ -1469,7 +1467,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Query/Connection",
             );
@@ -1494,7 +1492,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Query/Connections",
             );
@@ -1520,7 +1518,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Query/ClientConnections",
             );
@@ -1548,7 +1546,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Query/ConnectionClientState",
             );
@@ -1579,7 +1577,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Query/ConnectionConsensusState",
             );
@@ -1609,7 +1607,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.connection.v1.Query/ConnectionParams",
             );
@@ -1795,7 +1793,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1840,7 +1838,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1885,7 +1883,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ClientConnectionsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1933,7 +1931,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionClientStateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1982,7 +1980,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionConsensusStateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2027,7 +2025,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,

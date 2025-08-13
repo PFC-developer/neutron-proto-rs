@@ -91,7 +91,7 @@ impl ::prost::Name for IdentifiedPacketFees {
     }
 }
 /// MsgRegisterPayee defines the request type for the RegisterPayee rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRegisterPayee {
     /// unique port identifier
     #[prost(string, tag = "1")]
@@ -117,7 +117,7 @@ impl ::prost::Name for MsgRegisterPayee {
     }
 }
 /// MsgRegisterPayeeResponse defines the response type for the RegisterPayee rpc
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRegisterPayeeResponse {}
 impl ::prost::Name for MsgRegisterPayeeResponse {
     const NAME: &'static str = "MsgRegisterPayeeResponse";
@@ -130,7 +130,7 @@ impl ::prost::Name for MsgRegisterPayeeResponse {
     }
 }
 /// MsgRegisterCounterpartyPayee defines the request type for the RegisterCounterpartyPayee rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRegisterCounterpartyPayee {
     /// unique port identifier
     #[prost(string, tag = "1")]
@@ -156,7 +156,7 @@ impl ::prost::Name for MsgRegisterCounterpartyPayee {
     }
 }
 /// MsgRegisterCounterpartyPayeeResponse defines the response type for the RegisterCounterpartyPayee rpc
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRegisterCounterpartyPayeeResponse {}
 impl ::prost::Name for MsgRegisterCounterpartyPayeeResponse {
     const NAME: &'static str = "MsgRegisterCounterpartyPayeeResponse";
@@ -200,7 +200,7 @@ impl ::prost::Name for MsgPayPacketFee {
     }
 }
 /// MsgPayPacketFeeResponse defines the response type for the PayPacketFee rpc
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgPayPacketFeeResponse {}
 impl ::prost::Name for MsgPayPacketFeeResponse {
     const NAME: &'static str = "MsgPayPacketFeeResponse";
@@ -236,7 +236,7 @@ impl ::prost::Name for MsgPayPacketFeeAsync {
     }
 }
 /// MsgPayPacketFeeAsyncResponse defines the response type for the PayPacketFeeAsync rpc
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgPayPacketFeeAsyncResponse {}
 impl ::prost::Name for MsgPayPacketFeeAsyncResponse {
     const NAME: &'static str = "MsgPayPacketFeeAsyncResponse";
@@ -362,7 +362,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Msg/RegisterPayee",
             );
@@ -391,7 +391,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Msg/RegisterCounterpartyPayee",
             );
@@ -425,7 +425,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Msg/PayPacketFee",
             );
@@ -452,7 +452,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Msg/PayPacketFeeAsync",
             );
@@ -631,7 +631,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = RegisterPayeeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -677,7 +677,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = RegisterCounterpartyPayeeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -720,7 +720,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PayPacketFeeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -763,7 +763,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PayPacketFeeAsyncSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -819,7 +819,7 @@ pub mod msg_server {
     }
 }
 /// IncentivizedAcknowledgement is the acknowledgement format to be used by applications wrapped in the fee middleware
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct IncentivizedAcknowledgement {
     /// the underlying app acknowledgement bytes
     #[prost(bytes = "vec", tag = "1")]
@@ -873,7 +873,7 @@ impl ::prost::Name for GenesisState {
     }
 }
 /// FeeEnabledChannel contains the PortID & ChannelID for a fee enabled channel
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct FeeEnabledChannel {
     /// unique port identifier
     #[prost(string, tag = "1")]
@@ -893,7 +893,7 @@ impl ::prost::Name for FeeEnabledChannel {
     }
 }
 /// RegisteredPayee contains the relayer address and payee address for a specific channel
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RegisteredPayee {
     /// unique channel identifier
     #[prost(string, tag = "1")]
@@ -917,7 +917,7 @@ impl ::prost::Name for RegisteredPayee {
 }
 /// RegisteredCounterpartyPayee contains the relayer address and counterparty payee address for a specific channel (used
 /// for recv fee distribution)
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct RegisteredCounterpartyPayee {
     /// unique channel identifier
     #[prost(string, tag = "1")]
@@ -940,7 +940,7 @@ impl ::prost::Name for RegisteredCounterpartyPayee {
     }
 }
 /// ForwardRelayerAddress contains the forward relayer address and PacketId used for async acknowledgements
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ForwardRelayerAddress {
     /// the forward relayer address
     #[prost(string, tag = "1")]
@@ -962,7 +962,7 @@ impl ::prost::Name for ForwardRelayerAddress {
     }
 }
 /// QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryIncentivizedPacketsRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
@@ -1006,7 +1006,7 @@ impl ::prost::Name for QueryIncentivizedPacketsResponse {
     }
 }
 /// QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryIncentivizedPacketRequest {
     /// unique packet identifier comprised of channel ID, port ID and sequence
     #[prost(message, optional, tag = "1")]
@@ -1046,7 +1046,7 @@ impl ::prost::Name for QueryIncentivizedPacketResponse {
 }
 /// QueryIncentivizedPacketsForChannelRequest defines the request type for querying for all incentivized packets
 /// for a specific channel
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryIncentivizedPacketsForChannelRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
@@ -1094,7 +1094,7 @@ impl ::prost::Name for QueryIncentivizedPacketsForChannelResponse {
     }
 }
 /// QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryTotalRecvFeesRequest {
     /// the packet identifier for the associated fees
     #[prost(message, optional, tag = "1")]
@@ -1132,7 +1132,7 @@ impl ::prost::Name for QueryTotalRecvFeesResponse {
     }
 }
 /// QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryTotalAckFeesRequest {
     /// the packet identifier for the associated fees
     #[prost(message, optional, tag = "1")]
@@ -1170,7 +1170,7 @@ impl ::prost::Name for QueryTotalAckFeesResponse {
     }
 }
 /// QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryTotalTimeoutFeesRequest {
     /// the packet identifier for the associated fees
     #[prost(message, optional, tag = "1")]
@@ -1208,7 +1208,7 @@ impl ::prost::Name for QueryTotalTimeoutFeesResponse {
     }
 }
 /// QueryPayeeRequest defines the request type for the Payee rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPayeeRequest {
     /// unique channel identifier
     #[prost(string, tag = "1")]
@@ -1228,7 +1228,7 @@ impl ::prost::Name for QueryPayeeRequest {
     }
 }
 /// QueryPayeeResponse defines the response type for the Payee rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPayeeResponse {
     /// the payee address to which packet fees are paid out
     #[prost(string, tag = "1")]
@@ -1245,7 +1245,7 @@ impl ::prost::Name for QueryPayeeResponse {
     }
 }
 /// QueryCounterpartyPayeeRequest defines the request type for the CounterpartyPayee rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryCounterpartyPayeeRequest {
     /// unique channel identifier
     #[prost(string, tag = "1")]
@@ -1265,7 +1265,7 @@ impl ::prost::Name for QueryCounterpartyPayeeRequest {
     }
 }
 /// QueryCounterpartyPayeeResponse defines the response type for the CounterpartyPayee rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryCounterpartyPayeeResponse {
     /// the counterparty payee address used to compensate forward relaying
     #[prost(string, tag = "1")]
@@ -1282,7 +1282,7 @@ impl ::prost::Name for QueryCounterpartyPayeeResponse {
     }
 }
 /// QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryFeeEnabledChannelsRequest {
     /// pagination defines an optional pagination for the request.
     #[prost(message, optional, tag = "1")]
@@ -1326,7 +1326,7 @@ impl ::prost::Name for QueryFeeEnabledChannelsResponse {
     }
 }
 /// QueryFeeEnabledChannelRequest defines the request type for the FeeEnabledChannel rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryFeeEnabledChannelRequest {
     /// unique port identifier
     #[prost(string, tag = "1")]
@@ -1346,7 +1346,7 @@ impl ::prost::Name for QueryFeeEnabledChannelRequest {
     }
 }
 /// QueryFeeEnabledChannelResponse defines the response type for the FeeEnabledChannel rpc
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryFeeEnabledChannelResponse {
     /// boolean flag representing the fee enabled channel status
     #[prost(bool, tag = "1")]
@@ -1472,7 +1472,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/IncentivizedPackets",
             );
@@ -1502,7 +1502,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/IncentivizedPacket",
             );
@@ -1534,7 +1534,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/IncentivizedPacketsForChannel",
             );
@@ -1564,7 +1564,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/TotalRecvFees",
             );
@@ -1591,7 +1591,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/TotalAckFees",
             );
@@ -1618,7 +1618,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/TotalTimeoutFees",
             );
@@ -1645,7 +1645,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/Payee",
             );
@@ -1670,7 +1670,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/CounterpartyPayee",
             );
@@ -1697,7 +1697,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/FeeEnabledChannels",
             );
@@ -1727,7 +1727,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.applications.fee.v1.Query/FeeEnabledChannel",
             );
@@ -1944,7 +1944,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = IncentivizedPacketsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -1991,7 +1991,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = IncentivizedPacketSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2043,7 +2043,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = IncentivizedPacketsForChannelSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2088,7 +2088,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = TotalRecvFeesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2133,7 +2133,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = TotalAckFeesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2178,7 +2178,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = TotalTimeoutFeesSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2221,7 +2221,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PayeeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2266,7 +2266,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = CounterpartyPayeeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2313,7 +2313,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = FeeEnabledChannelsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2358,7 +2358,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = FeeEnabledChannelSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2415,7 +2415,7 @@ pub mod query_server {
 }
 /// Metadata defines the ICS29 channel specific metadata encoded into the channel version bytestring
 /// See ICS004: <https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#Versioning>
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Metadata {
     /// fee_version defines the ICS29 fee version
     #[prost(string, tag = "1")]

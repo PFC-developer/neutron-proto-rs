@@ -27,7 +27,7 @@ impl ::prost::Name for MsgSubmitQueryResponse {
 }
 /// MsgSubmitQueryResponseResponse defines the MsgSubmitQueryResponse response
 /// type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgSubmitQueryResponseResponse {}
 impl ::prost::Name for MsgSubmitQueryResponseResponse {
     const NAME: &'static str = "MsgSubmitQueryResponseResponse";
@@ -149,7 +149,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/stride.interchainquery.v1.Msg/SubmitQueryResponse",
             );
@@ -295,7 +295,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SubmitQueryResponseSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,

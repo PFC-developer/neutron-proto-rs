@@ -4,15 +4,17 @@ version      = "0.3.0"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
 publish      = false
-rust-version = "1.75"
+rust-version = "1.88"
 
 [dependencies]
 git2                         = "0.19"
-prost-build                  = "0.13"
+prost-build                  = "0.14.1"
 walkdir                      = "2.3"
 argh                         = "0.1"
-tonic                        = "0.13.0"
-tonic-build                  = "0.13.0"
+tonic                        = "0.14.1"
+tonic-build                  = "0.14.1"
+tonic-prost = "0.14.1"
+tonic-prost-build = "0.14.1"
 similar                      = "2.2"
 informalsystems-pbjson-build = "0.7.0"
 regex                        = "1"

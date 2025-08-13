@@ -42,7 +42,7 @@ pub struct ClientState {
     /// `{upgradePath}/{upgradeHeight}/clientState` ConsensusState must be stored
     /// under `{upgradepath}/{upgradeHeight}/consensusState` For SDK chains using
     /// the default upgrade module, upgrade_path should be \[\]string{"upgrade",
-    /// "upgradedIBCState"}`
+    /// "upgradedIBCState"}\`
     #[prost(string, repeated, tag = "9")]
     pub upgrade_path: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
     /// allow_update_after_expiry is deprecated
@@ -65,7 +65,7 @@ impl ::prost::Name for ClientState {
     }
 }
 /// ConsensusState defines the consensus state from Tendermint.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsensusState {
     /// timestamp that corresponds to the block height in which the ConsensusState
     /// was stored.
@@ -153,7 +153,7 @@ impl ::prost::Name for Header {
 }
 /// Fraction defines the protobuf message type for tmmath.Fraction that only
 /// supports positive values.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Fraction {
     #[prost(uint64, tag = "1")]
     pub numerator: u64,

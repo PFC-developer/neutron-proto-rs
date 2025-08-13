@@ -6,7 +6,7 @@
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Channel {
     /// current state of the channel end
     #[prost(enumeration = "State", tag = "1")]
@@ -41,7 +41,7 @@ impl ::prost::Name for Channel {
 }
 /// IdentifiedChannel defines a channel with additional port and channel
 /// identifier fields.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct IdentifiedChannel {
     /// current state of the channel end
     #[prost(enumeration = "State", tag = "1")]
@@ -85,7 +85,7 @@ impl ::prost::Name for IdentifiedChannel {
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Counterparty {
     /// port on the counterparty chain which owns the other end of the channel.
     #[prost(string, tag = "1")]
@@ -105,7 +105,7 @@ impl ::prost::Name for Counterparty {
     }
 }
 /// Packet defines a type that carries data across different chains through IBC
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Packet {
     /// number corresponds to the order of sends and receives, where a Packet
     /// with an earlier sequence number must be sent and received before a Packet
@@ -148,7 +148,7 @@ impl ::prost::Name for Packet {
 /// packet commitments, acknowledgements, and receipts.
 /// Caller is responsible for knowing the context necessary to interpret this
 /// state as a commitment, acknowledgement, or a receipt.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PacketState {
     /// channel port identifier.
     #[prost(string, tag = "1")]
@@ -176,7 +176,7 @@ impl ::prost::Name for PacketState {
 /// PacketId is an identifer for a unique Packet
 /// Source chains refer to packets by source port/channel
 /// Destination chains refer to packets by destination port/channel
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PacketId {
     /// channel port identifier
     #[prost(string, tag = "1")]
@@ -205,7 +205,7 @@ impl ::prost::Name for PacketId {
 /// The first byte of any message with this format will be the non-ASCII values
 /// `0xaa` (result) or `0xb2` (error). Implemented as defined by ICS:
 /// <https://github.com/cosmos/ibc/tree/master/spec/core/ics-004-channel-and-packet-semantics#acknowledgement-envelope>
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Acknowledgement {
     /// response contains either a result or an error and must be non-empty
     #[prost(oneof = "acknowledgement::Response", tags = "21, 22")]
@@ -214,7 +214,7 @@ pub struct Acknowledgement {
 /// Nested message and enum types in `Acknowledgement`.
 pub mod acknowledgement {
     /// response contains either a result or an error and must be non-empty
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    #[derive(Clone, PartialEq, Eq, Hash, ::prost::Oneof)]
     pub enum Response {
         #[prost(bytes, tag = "21")]
         Result(::prost::alloc::vec::Vec<u8>),
@@ -235,7 +235,7 @@ impl ::prost::Name for Acknowledgement {
 /// Timeout defines an execution deadline structure for 04-channel handlers.
 /// This includes packet lifecycle handlers as well as the upgrade handshake handlers.
 /// A valid Timeout contains either one or both of a timestamp and block height (sequence).
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Timeout {
     /// block height after which the packet or upgrade times out
     #[prost(message, optional, tag = "1")]
@@ -255,7 +255,7 @@ impl ::prost::Name for Timeout {
     }
 }
 /// Params defines the set of IBC channel parameters.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Params {
     /// the relative timeout after which channel upgrades will time out.
     #[prost(message, optional, tag = "1")]
@@ -392,7 +392,7 @@ impl ::prost::Name for GenesisState {
 }
 /// PacketSequence defines the genesis type necessary to retrieve and store
 /// next send and receive sequences.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PacketSequence {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -416,7 +416,7 @@ impl ::prost::Name for PacketSequence {
 /// end, the timeout for this upgrade attempt and the next packet sequence
 /// which allows the counterparty to efficiently know the highest sequence it has received.
 /// The next sequence send is used for pruning and upgrading from unordered to ordered channels.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Upgrade {
     #[prost(message, optional, tag = "1")]
     pub fields: ::core::option::Option<UpgradeFields>,
@@ -437,7 +437,7 @@ impl ::prost::Name for Upgrade {
 }
 /// UpgradeFields are the fields in a channel end which may be changed
 /// during a channel upgrade.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct UpgradeFields {
     #[prost(enumeration = "Order", tag = "1")]
     pub ordering: i32,
@@ -459,7 +459,7 @@ impl ::prost::Name for UpgradeFields {
 /// ErrorReceipt defines a type which encapsulates the upgrade sequence and error associated with the
 /// upgrade handshake failure. When a channel upgrade handshake is aborted both chains are expected to increment to the
 /// next sequence.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ErrorReceipt {
     /// the channel upgrade sequence
     #[prost(uint64, tag = "1")]
@@ -480,7 +480,7 @@ impl ::prost::Name for ErrorReceipt {
 }
 /// MsgChannelOpenInit defines an sdk.Msg to initialize a channel handshake. It
 /// is called by a relayer on Chain A.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenInit {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -500,7 +500,7 @@ impl ::prost::Name for MsgChannelOpenInit {
     }
 }
 /// MsgChannelOpenInitResponse defines the Msg/ChannelOpenInit response type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenInitResponse {
     #[prost(string, tag = "1")]
     pub channel_id: ::prost::alloc::string::String,
@@ -520,7 +520,7 @@ impl ::prost::Name for MsgChannelOpenInitResponse {
 /// MsgChannelOpenInit defines a msg sent by a Relayer to try to open a channel
 /// on Chain B. The version field within the Channel field has been deprecated. Its
 /// value will be ignored by core IBC.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenTry {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -551,7 +551,7 @@ impl ::prost::Name for MsgChannelOpenTry {
     }
 }
 /// MsgChannelOpenTryResponse defines the Msg/ChannelOpenTry response type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenTryResponse {
     #[prost(string, tag = "1")]
     pub version: ::prost::alloc::string::String,
@@ -573,7 +573,7 @@ impl ::prost::Name for MsgChannelOpenTryResponse {
 /// WARNING: a channel upgrade MUST NOT initialize an upgrade for this channel
 /// in the same block as executing this message otherwise the counterparty will
 /// be incapable of opening.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenAck {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -601,7 +601,7 @@ impl ::prost::Name for MsgChannelOpenAck {
     }
 }
 /// MsgChannelOpenAckResponse defines the Msg/ChannelOpenAck response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenAckResponse {}
 impl ::prost::Name for MsgChannelOpenAckResponse {
     const NAME: &'static str = "MsgChannelOpenAckResponse";
@@ -615,7 +615,7 @@ impl ::prost::Name for MsgChannelOpenAckResponse {
 }
 /// MsgChannelOpenConfirm defines a msg sent by a Relayer to Chain B to
 /// acknowledge the change of channel state to OPEN on Chain A.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenConfirm {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -640,7 +640,7 @@ impl ::prost::Name for MsgChannelOpenConfirm {
 }
 /// MsgChannelOpenConfirmResponse defines the Msg/ChannelOpenConfirm response
 /// type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelOpenConfirmResponse {}
 impl ::prost::Name for MsgChannelOpenConfirmResponse {
     const NAME: &'static str = "MsgChannelOpenConfirmResponse";
@@ -654,7 +654,7 @@ impl ::prost::Name for MsgChannelOpenConfirmResponse {
 }
 /// MsgChannelCloseInit defines a msg sent by a Relayer to Chain A
 /// to close a channel with Chain B.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelCloseInit {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -674,7 +674,7 @@ impl ::prost::Name for MsgChannelCloseInit {
     }
 }
 /// MsgChannelCloseInitResponse defines the Msg/ChannelCloseInit response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelCloseInitResponse {}
 impl ::prost::Name for MsgChannelCloseInitResponse {
     const NAME: &'static str = "MsgChannelCloseInitResponse";
@@ -688,7 +688,7 @@ impl ::prost::Name for MsgChannelCloseInitResponse {
 }
 /// MsgChannelCloseConfirm defines a msg sent by a Relayer to Chain B
 /// to acknowledge the change of channel state to CLOSED on Chain A.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelCloseConfirm {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -715,7 +715,7 @@ impl ::prost::Name for MsgChannelCloseConfirm {
 }
 /// MsgChannelCloseConfirmResponse defines the Msg/ChannelCloseConfirm response
 /// type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelCloseConfirmResponse {}
 impl ::prost::Name for MsgChannelCloseConfirmResponse {
     const NAME: &'static str = "MsgChannelCloseConfirmResponse";
@@ -728,7 +728,7 @@ impl ::prost::Name for MsgChannelCloseConfirmResponse {
     }
 }
 /// MsgRecvPacket receives incoming IBC packet
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRecvPacket {
     #[prost(message, optional, tag = "1")]
     pub packet: ::core::option::Option<Packet>,
@@ -750,7 +750,7 @@ impl ::prost::Name for MsgRecvPacket {
     }
 }
 /// MsgRecvPacketResponse defines the Msg/RecvPacket response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRecvPacketResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -766,7 +766,7 @@ impl ::prost::Name for MsgRecvPacketResponse {
     }
 }
 /// MsgTimeout receives timed-out packet
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgTimeout {
     #[prost(message, optional, tag = "1")]
     pub packet: ::core::option::Option<Packet>,
@@ -790,7 +790,7 @@ impl ::prost::Name for MsgTimeout {
     }
 }
 /// MsgTimeoutResponse defines the Msg/Timeout response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgTimeoutResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -806,7 +806,7 @@ impl ::prost::Name for MsgTimeoutResponse {
     }
 }
 /// MsgTimeoutOnClose timed-out packet upon counterparty channel closure.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgTimeoutOnClose {
     #[prost(message, optional, tag = "1")]
     pub packet: ::core::option::Option<Packet>,
@@ -834,7 +834,7 @@ impl ::prost::Name for MsgTimeoutOnClose {
     }
 }
 /// MsgTimeoutOnCloseResponse defines the Msg/TimeoutOnClose response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgTimeoutOnCloseResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -850,7 +850,7 @@ impl ::prost::Name for MsgTimeoutOnCloseResponse {
     }
 }
 /// MsgAcknowledgement receives incoming IBC acknowledgement
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgAcknowledgement {
     #[prost(message, optional, tag = "1")]
     pub packet: ::core::option::Option<Packet>,
@@ -874,7 +874,7 @@ impl ::prost::Name for MsgAcknowledgement {
     }
 }
 /// MsgAcknowledgementResponse defines the Msg/Acknowledgement response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgAcknowledgementResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -892,7 +892,7 @@ impl ::prost::Name for MsgAcknowledgementResponse {
 /// MsgChannelUpgradeInit defines the request type for the ChannelUpgradeInit rpc
 /// WARNING: Initializing a channel upgrade in the same block as opening the channel
 /// may result in the counterparty being incapable of opening.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeInit {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -914,7 +914,7 @@ impl ::prost::Name for MsgChannelUpgradeInit {
     }
 }
 /// MsgChannelUpgradeInitResponse defines the MsgChannelUpgradeInit response type
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeInitResponse {
     #[prost(message, optional, tag = "1")]
     pub upgrade: ::core::option::Option<Upgrade>,
@@ -932,7 +932,7 @@ impl ::prost::Name for MsgChannelUpgradeInitResponse {
     }
 }
 /// MsgChannelUpgradeTry defines the request type for the ChannelUpgradeTry rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeTry {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -966,7 +966,7 @@ impl ::prost::Name for MsgChannelUpgradeTry {
     }
 }
 /// MsgChannelUpgradeTryResponse defines the MsgChannelUpgradeTry response type
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeTryResponse {
     #[prost(message, optional, tag = "1")]
     pub upgrade: ::core::option::Option<Upgrade>,
@@ -986,7 +986,7 @@ impl ::prost::Name for MsgChannelUpgradeTryResponse {
     }
 }
 /// MsgChannelUpgradeAck defines the request type for the ChannelUpgradeAck rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeAck {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -1014,7 +1014,7 @@ impl ::prost::Name for MsgChannelUpgradeAck {
     }
 }
 /// MsgChannelUpgradeAckResponse defines MsgChannelUpgradeAck response type
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeAckResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -1030,7 +1030,7 @@ impl ::prost::Name for MsgChannelUpgradeAckResponse {
     }
 }
 /// MsgChannelUpgradeConfirm defines the request type for the ChannelUpgradeConfirm rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeConfirm {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -1060,7 +1060,7 @@ impl ::prost::Name for MsgChannelUpgradeConfirm {
     }
 }
 /// MsgChannelUpgradeConfirmResponse defines MsgChannelUpgradeConfirm response type
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeConfirmResponse {
     #[prost(enumeration = "ResponseResultType", tag = "1")]
     pub result: i32,
@@ -1076,7 +1076,7 @@ impl ::prost::Name for MsgChannelUpgradeConfirmResponse {
     }
 }
 /// MsgChannelUpgradeOpen defines the request type for the ChannelUpgradeOpen rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeOpen {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -1104,7 +1104,7 @@ impl ::prost::Name for MsgChannelUpgradeOpen {
     }
 }
 /// MsgChannelUpgradeOpenResponse defines the MsgChannelUpgradeOpen response type
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeOpenResponse {}
 impl ::prost::Name for MsgChannelUpgradeOpenResponse {
     const NAME: &'static str = "MsgChannelUpgradeOpenResponse";
@@ -1117,7 +1117,7 @@ impl ::prost::Name for MsgChannelUpgradeOpenResponse {
     }
 }
 /// MsgChannelUpgradeTimeout defines the request type for the ChannelUpgradeTimeout rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeTimeout {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -1143,7 +1143,7 @@ impl ::prost::Name for MsgChannelUpgradeTimeout {
     }
 }
 /// MsgChannelUpgradeTimeoutRepsonse defines the MsgChannelUpgradeTimeout response type
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeTimeoutResponse {}
 impl ::prost::Name for MsgChannelUpgradeTimeoutResponse {
     const NAME: &'static str = "MsgChannelUpgradeTimeoutResponse";
@@ -1156,7 +1156,7 @@ impl ::prost::Name for MsgChannelUpgradeTimeoutResponse {
     }
 }
 /// MsgChannelUpgradeCancel defines the request type for the ChannelUpgradeCancel rpc
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeCancel {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -1182,7 +1182,7 @@ impl ::prost::Name for MsgChannelUpgradeCancel {
     }
 }
 /// MsgChannelUpgradeCancelResponse defines the MsgChannelUpgradeCancel response type
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChannelUpgradeCancelResponse {}
 impl ::prost::Name for MsgChannelUpgradeCancelResponse {
     const NAME: &'static str = "MsgChannelUpgradeCancelResponse";
@@ -1195,7 +1195,7 @@ impl ::prost::Name for MsgChannelUpgradeCancelResponse {
     }
 }
 /// MsgUpdateParams is the MsgUpdateParams request type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateParams {
     /// authority is the address that controls the module (defaults to x/gov unless overwritten).
     #[prost(string, tag = "1")]
@@ -1217,7 +1217,7 @@ impl ::prost::Name for MsgUpdateParams {
     }
 }
 /// MsgUpdateParamsResponse defines the MsgUpdateParams response type.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
 impl ::prost::Name for MsgUpdateParamsResponse {
     const NAME: &'static str = "MsgUpdateParamsResponse";
@@ -1230,7 +1230,7 @@ impl ::prost::Name for MsgUpdateParamsResponse {
     }
 }
 /// MsgPruneAcknowledgements defines the request type for the PruneAcknowledgements rpc.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgPruneAcknowledgements {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -1252,7 +1252,7 @@ impl ::prost::Name for MsgPruneAcknowledgements {
     }
 }
 /// MsgPruneAcknowledgementsResponse defines the response type for the PruneAcknowledgements rpc.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgPruneAcknowledgementsResponse {
     /// Number of sequences pruned (includes both packet acknowledgements and packet receipts where appropriate).
     #[prost(uint64, tag = "1")]
@@ -1418,7 +1418,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelOpenInit",
             );
@@ -1443,7 +1443,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelOpenTry",
             );
@@ -1468,7 +1468,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelOpenAck",
             );
@@ -1493,7 +1493,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelOpenConfirm",
             );
@@ -1520,7 +1520,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelCloseInit",
             );
@@ -1546,7 +1546,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelCloseConfirm",
             );
@@ -1573,7 +1573,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/RecvPacket",
             );
@@ -1598,7 +1598,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/Timeout",
             );
@@ -1623,7 +1623,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/TimeoutOnClose",
             );
@@ -1648,7 +1648,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/Acknowledgement",
             );
@@ -1673,7 +1673,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeInit",
             );
@@ -1700,7 +1700,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeTry",
             );
@@ -1725,7 +1725,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeAck",
             );
@@ -1750,7 +1750,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeConfirm",
             );
@@ -1777,7 +1777,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeOpen",
             );
@@ -1804,7 +1804,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeTimeout",
             );
@@ -1831,7 +1831,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/ChannelUpgradeCancel",
             );
@@ -1858,7 +1858,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/UpdateChannelParams",
             );
@@ -1885,7 +1885,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Msg/PruneAcknowledgements",
             );
@@ -2171,7 +2171,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelOpenInitSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2214,7 +2214,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelOpenTrySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2257,7 +2257,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelOpenAckSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2302,7 +2302,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelOpenConfirmSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2345,7 +2345,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelCloseInitSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2390,7 +2390,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelCloseConfirmSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2433,7 +2433,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = RecvPacketSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2476,7 +2476,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = TimeoutSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2519,7 +2519,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = TimeoutOnCloseSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2562,7 +2562,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = AcknowledgementSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2607,7 +2607,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeInitSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2650,7 +2650,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeTrySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2693,7 +2693,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeAckSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2738,7 +2738,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeConfirmSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2783,7 +2783,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeOpenSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2828,7 +2828,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeTimeoutSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2873,7 +2873,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelUpgradeCancelSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2916,7 +2916,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpdateChannelParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2961,7 +2961,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PruneAcknowledgementsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -3017,7 +3017,7 @@ pub mod msg_server {
     }
 }
 /// QueryChannelRequest is the request type for the Query/Channel RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3039,7 +3039,7 @@ impl ::prost::Name for QueryChannelRequest {
 /// QueryChannelResponse is the response type for the Query/Channel RPC method.
 /// Besides the Channel end, it includes a proof and the height from which the
 /// proof was retrieved.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelResponse {
     /// channel associated with the request identifiers
     #[prost(message, optional, tag = "1")]
@@ -3062,7 +3062,7 @@ impl ::prost::Name for QueryChannelResponse {
     }
 }
 /// QueryChannelsRequest is the request type for the Query/Channels RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelsRequest {
     /// pagination request
     #[prost(message, optional, tag = "1")]
@@ -3107,7 +3107,7 @@ impl ::prost::Name for QueryChannelsResponse {
 }
 /// QueryConnectionChannelsRequest is the request type for the
 /// Query/QueryConnectionChannels RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConnectionChannelsRequest {
     /// connection unique identifier
     #[prost(string, tag = "1")]
@@ -3156,7 +3156,7 @@ impl ::prost::Name for QueryConnectionChannelsResponse {
 }
 /// QueryChannelClientStateRequest is the request type for the Query/ClientState
 /// RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelClientStateRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3177,7 +3177,7 @@ impl ::prost::Name for QueryChannelClientStateRequest {
 }
 /// QueryChannelClientStateResponse is the Response type for the
 /// Query/QueryChannelClientState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, ::prost::Message)]
 pub struct QueryChannelClientStateResponse {
     /// client state associated with the channel
     #[prost(message, optional, tag = "1")]
@@ -3203,7 +3203,7 @@ impl ::prost::Name for QueryChannelClientStateResponse {
 }
 /// QueryChannelConsensusStateRequest is the request type for the
 /// Query/ConsensusState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelConsensusStateRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3230,7 +3230,7 @@ impl ::prost::Name for QueryChannelConsensusStateRequest {
 }
 /// QueryChannelClientStateResponse is the Response type for the
 /// Query/QueryChannelClientState RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq,  ::prost::Message)]
 pub struct QueryChannelConsensusStateResponse {
     /// consensus state associated with the channel
     #[prost(message, optional, tag = "1")]
@@ -3259,7 +3259,7 @@ impl ::prost::Name for QueryChannelConsensusStateResponse {
 }
 /// QueryPacketCommitmentRequest is the request type for the
 /// Query/PacketCommitment RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketCommitmentRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3284,7 +3284,7 @@ impl ::prost::Name for QueryPacketCommitmentRequest {
 /// QueryPacketCommitmentResponse defines the client query response for a packet
 /// which also includes a proof and the height from which the proof was
 /// retrieved
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketCommitmentResponse {
     /// packet associated with the request fields
     #[prost(bytes = "vec", tag = "1")]
@@ -3308,7 +3308,7 @@ impl ::prost::Name for QueryPacketCommitmentResponse {
 }
 /// QueryPacketCommitmentsRequest is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketCommitmentsRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3359,7 +3359,7 @@ impl ::prost::Name for QueryPacketCommitmentsResponse {
 }
 /// QueryPacketReceiptRequest is the request type for the
 /// Query/PacketReceipt RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketReceiptRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3384,7 +3384,7 @@ impl ::prost::Name for QueryPacketReceiptRequest {
 /// QueryPacketReceiptResponse defines the client query response for a packet
 /// receipt which also includes a proof, and the height from which the proof was
 /// retrieved
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketReceiptResponse {
     /// success flag for if receipt exists
     #[prost(bool, tag = "2")]
@@ -3408,7 +3408,7 @@ impl ::prost::Name for QueryPacketReceiptResponse {
 }
 /// QueryPacketAcknowledgementRequest is the request type for the
 /// Query/PacketAcknowledgement RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketAcknowledgementRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3433,7 +3433,7 @@ impl ::prost::Name for QueryPacketAcknowledgementRequest {
 /// QueryPacketAcknowledgementResponse defines the client query response for a
 /// packet which also includes a proof and the height from which the
 /// proof was retrieved
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketAcknowledgementResponse {
     /// packet associated with the request fields
     #[prost(bytes = "vec", tag = "1")]
@@ -3457,7 +3457,7 @@ impl ::prost::Name for QueryPacketAcknowledgementResponse {
 }
 /// QueryPacketAcknowledgementsRequest is the request type for the
 /// Query/QueryPacketCommitments RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryPacketAcknowledgementsRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3511,7 +3511,7 @@ impl ::prost::Name for QueryPacketAcknowledgementsResponse {
 }
 /// QueryUnreceivedPacketsRequest is the request type for the
 /// Query/UnreceivedPackets RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUnreceivedPacketsRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3535,7 +3535,7 @@ impl ::prost::Name for QueryUnreceivedPacketsRequest {
 }
 /// QueryUnreceivedPacketsResponse is the response type for the
 /// Query/UnreceivedPacketCommitments RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUnreceivedPacketsResponse {
     /// list of unreceived packet sequences
     #[prost(uint64, repeated, tag = "1")]
@@ -3556,7 +3556,7 @@ impl ::prost::Name for QueryUnreceivedPacketsResponse {
 }
 /// QueryUnreceivedAcks is the request type for the
 /// Query/UnreceivedAcks RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUnreceivedAcksRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3580,7 +3580,7 @@ impl ::prost::Name for QueryUnreceivedAcksRequest {
 }
 /// QueryUnreceivedAcksResponse is the response type for the
 /// Query/UnreceivedAcks RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUnreceivedAcksResponse {
     /// list of unreceived acknowledgement sequences
     #[prost(uint64, repeated, tag = "1")]
@@ -3601,7 +3601,7 @@ impl ::prost::Name for QueryUnreceivedAcksResponse {
 }
 /// QueryNextSequenceReceiveRequest is the request type for the
 /// Query/QueryNextSequenceReceiveRequest RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryNextSequenceReceiveRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3622,7 +3622,7 @@ impl ::prost::Name for QueryNextSequenceReceiveRequest {
 }
 /// QuerySequenceResponse is the response type for the
 /// Query/QueryNextSequenceReceiveResponse RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryNextSequenceReceiveResponse {
     /// next sequence receive number
     #[prost(uint64, tag = "1")]
@@ -3646,7 +3646,7 @@ impl ::prost::Name for QueryNextSequenceReceiveResponse {
 }
 /// QueryNextSequenceSendRequest is the request type for the
 /// Query/QueryNextSequenceSend RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryNextSequenceSendRequest {
     /// port unique identifier
     #[prost(string, tag = "1")]
@@ -3667,7 +3667,7 @@ impl ::prost::Name for QueryNextSequenceSendRequest {
 }
 /// QueryNextSequenceSendResponse is the request type for the
 /// Query/QueryNextSequenceSend RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryNextSequenceSendResponse {
     /// next sequence send number
     #[prost(uint64, tag = "1")]
@@ -3690,7 +3690,7 @@ impl ::prost::Name for QueryNextSequenceSendResponse {
     }
 }
 /// QueryUpgradeErrorRequest is the request type for the Query/QueryUpgradeError RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUpgradeErrorRequest {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -3708,7 +3708,7 @@ impl ::prost::Name for QueryUpgradeErrorRequest {
     }
 }
 /// QueryUpgradeErrorResponse is the response type for the Query/QueryUpgradeError RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUpgradeErrorResponse {
     #[prost(message, optional, tag = "1")]
     pub error_receipt: ::core::option::Option<ErrorReceipt>,
@@ -3730,7 +3730,7 @@ impl ::prost::Name for QueryUpgradeErrorResponse {
     }
 }
 /// QueryUpgradeRequest is the request type for the QueryUpgradeRequest RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUpgradeRequest {
     #[prost(string, tag = "1")]
     pub port_id: ::prost::alloc::string::String,
@@ -3748,7 +3748,7 @@ impl ::prost::Name for QueryUpgradeRequest {
     }
 }
 /// QueryUpgradeResponse is the response type for the QueryUpgradeResponse RPC method
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryUpgradeResponse {
     #[prost(message, optional, tag = "1")]
     pub upgrade: ::core::option::Option<Upgrade>,
@@ -3770,7 +3770,7 @@ impl ::prost::Name for QueryUpgradeResponse {
     }
 }
 /// QueryChannelParamsRequest is the request type for the Query/ChannelParams RPC method.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelParamsRequest {}
 impl ::prost::Name for QueryChannelParamsRequest {
     const NAME: &'static str = "QueryChannelParamsRequest";
@@ -3783,7 +3783,7 @@ impl ::prost::Name for QueryChannelParamsRequest {
     }
 }
 /// QueryChannelParamsResponse is the response type for the Query/ChannelParams RPC method.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryChannelParamsResponse {
     /// params defines the parameters of the module.
     #[prost(message, optional, tag = "1")]
@@ -3909,7 +3909,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/Channel",
             );
@@ -3934,7 +3934,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/Channels",
             );
@@ -3960,7 +3960,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/ConnectionChannels",
             );
@@ -3988,7 +3988,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/ChannelClientState",
             );
@@ -4016,7 +4016,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/ChannelConsensusState",
             );
@@ -4043,7 +4043,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/PacketCommitment",
             );
@@ -4071,7 +4071,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/PacketCommitments",
             );
@@ -4099,7 +4099,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/PacketReceipt",
             );
@@ -4124,7 +4124,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/PacketAcknowledgement",
             );
@@ -4152,7 +4152,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/PacketAcknowledgements",
             );
@@ -4183,7 +4183,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/UnreceivedPackets",
             );
@@ -4211,7 +4211,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/UnreceivedAcks",
             );
@@ -4236,7 +4236,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/NextSequenceReceive",
             );
@@ -4263,7 +4263,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/NextSequenceSend",
             );
@@ -4290,7 +4290,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/UpgradeError",
             );
@@ -4315,7 +4315,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/Upgrade",
             );
@@ -4340,7 +4340,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/ibc.core.channel.v1.Query/ChannelParams",
             );
@@ -4617,7 +4617,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4662,7 +4662,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4709,7 +4709,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ConnectionChannelsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4756,7 +4756,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelClientStateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4804,7 +4804,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelConsensusStateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4849,7 +4849,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PacketCommitmentSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4894,7 +4894,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PacketCommitmentsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4939,7 +4939,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PacketReceiptSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4987,7 +4987,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PacketAcknowledgementSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5035,7 +5035,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = PacketAcknowledgementsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5080,7 +5080,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UnreceivedPacketsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5125,7 +5125,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UnreceivedAcksSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5172,7 +5172,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = NextSequenceReceiveSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5217,7 +5217,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = NextSequenceSendSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5262,7 +5262,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpgradeErrorSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5307,7 +5307,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpgradeSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -5352,7 +5352,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChannelParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,

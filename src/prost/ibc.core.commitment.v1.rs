@@ -5,7 +5,7 @@
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MerkleRoot {
     #[prost(bytes = "vec", tag = "1")]
     #[cfg_attr(
@@ -31,7 +31,7 @@ impl ::prost::Name for MerkleRoot {
     all(feature = "json-schema", feature = "serde"),
     derive(::schemars::JsonSchema)
 )]
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MerklePrefix {
     #[prost(bytes = "vec", tag = "1")]
     #[cfg_attr(
@@ -53,7 +53,7 @@ impl ::prost::Name for MerklePrefix {
 /// MerklePath is the path used to verify commitment proofs, which can be an
 /// arbitrary structured object (defined by a commitment type).
 /// MerklePath is represented from root-to-leaf
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MerklePath {
     #[prost(string, repeated, tag = "1")]
     pub key_path: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,

@@ -6,7 +6,7 @@
 /// slashed. It is recommended that spawn time occurs after the proposal end
 /// time.
 /// Use MsgConsumerAddition to submit this proposal type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerAdditionProposal {
     /// the title of the proposal
     #[prost(string, tag = "1")]
@@ -129,7 +129,7 @@ impl ::prost::Name for ConsumerAdditionProposal {
 /// state is removed from the provider chain. The outstanding unbonding operation
 /// funds are released.
 /// Use MsgConsumerRemoval to submit this proposal type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerRemovalProposal {
     /// the title of the proposal
     #[prost(string, tag = "1")]
@@ -160,7 +160,7 @@ impl ::prost::Name for ConsumerRemovalProposal {
 /// WARNING: This message is deprecated in favor of `MsgUpdateConsumer`.
 /// ConsumerModificationProposal is a governance proposal on the provider chain to modify parameters of a running
 /// consumer chain. If it passes, the consumer chain's state is updated to take into account the newest params.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerModificationProposal {
     /// the title of the proposal
     #[prost(string, tag = "1")]
@@ -245,7 +245,7 @@ impl ::prost::Name for EquivocationProposal {
 /// ChangeRewardDenomsProposal is a governance proposal on the provider chain to
 /// mutate the set of denoms accepted by the provider as rewards.
 /// Use MsgChangeRewardDenoms to submit this proposal type.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ChangeRewardDenomsProposal {
     /// the title of the proposal
     #[prost(string, tag = "1")]
@@ -273,7 +273,7 @@ impl ::prost::Name for ChangeRewardDenomsProposal {
 /// A persisted queue entry indicating that a slash packet data instance needs to
 /// be handled. This type belongs in the "global" queue, to coordinate slash
 /// packet handling times between consumers.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct GlobalSlashEntry {
     /// Block time that slash packet was received by provider chain.
     /// This field is used for store key iteration ordering.
@@ -360,7 +360,7 @@ impl ::prost::Name for Params {
 }
 /// SlashAcks contains cons addresses of consumer chain validators
 /// successfully slashed on the provider chain.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct SlashAcks {
     #[prost(string, repeated, tag = "1")]
     pub addresses: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -412,7 +412,7 @@ impl ::prost::Name for ConsumerRemovalProposals {
     }
 }
 /// AddressList contains a list of consensus addresses
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct AddressList {
     #[prost(bytes = "vec", repeated, tag = "1")]
     pub addresses: ::prost::alloc::vec::Vec<::prost::alloc::vec::Vec<u8>>,
@@ -429,7 +429,7 @@ impl ::prost::Name for AddressList {
 }
 /// WARNING: This message is deprecated and is not used.
 /// ChannelToChain is used to map a CCV channel ID to the consumer chainID
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ChannelToChain {
     #[prost(string, tag = "1")]
     pub channel_id: ::prost::alloc::string::String,
@@ -462,7 +462,7 @@ impl ::prost::Name for ValidatorSetChangePackets {
         "/interchain_security.ccv.provider.v1.ValidatorSetChangePackets".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct KeyAssignmentReplacement {
     #[prost(bytes = "vec", tag = "1")]
     pub provider_addr: ::prost::alloc::vec::Vec<u8>,
@@ -484,7 +484,7 @@ impl ::prost::Name for KeyAssignmentReplacement {
 /// Used to serialize the ValidatorConsumerPubKey index from key assignment
 /// ValidatorConsumerPubKey: (chainID, providerAddr consAddr) -> consumerKey
 /// tmprotocrypto.PublicKey
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ValidatorConsumerPubKey {
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
@@ -506,7 +506,7 @@ impl ::prost::Name for ValidatorConsumerPubKey {
 /// Used to serialize the ValidatorConsumerAddr index from key assignment
 /// ValidatorByConsumerAddr: (chainID, consumerAddr consAddr) -> providerAddr
 /// consAddr
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ValidatorByConsumerAddr {
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
@@ -527,7 +527,7 @@ impl ::prost::Name for ValidatorByConsumerAddr {
 }
 /// Used to serialize the ConsumerAddrsToPruneV2 index from key assignment
 /// ConsumerAddrsToPruneV2: (chainID, pruneTs time.Time) -> consumerAddrs AddressList
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerAddrsToPruneV2 {
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
@@ -553,7 +553,7 @@ impl ::prost::Name for ConsumerAddrsToPruneV2 {
 /// It contains relevant info for
 /// a validator that is expected to validate on
 /// either the provider or a consumer chain.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsensusValidator {
     /// validator's consensus address on the provider chain
     #[prost(bytes = "vec", tag = "1")]
@@ -602,7 +602,7 @@ impl ::prost::Name for ConsumerRewardsAllocation {
     }
 }
 /// ConsumerMetadata contains general information about the registered chain
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerMetadata {
     /// the name of the chain
     #[prost(string, tag = "1")]
@@ -626,10 +626,12 @@ impl ::prost::Name for ConsumerMetadata {
 }
 /// ConsumerInitializationParameters are the parameters needed to launch a chain
 ///
-/// ---------- ---------- ----------
+/// ---
+///
 /// Following fields are used when the consumer chain launches and are not needed by the provider afterwards.
-/// ---------- ---------- ----------
-#[derive(Clone, PartialEq, ::prost::Message)]
+///
+/// ---
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerInitializationParameters {
     /// the proposed initial height of new consumer chain.
     /// For a completely new chain, this will be {0,1}. However, it may be
@@ -707,7 +709,7 @@ impl ::prost::Name for ConsumerInitializationParameters {
     }
 }
 /// PowerShapingParameters contains parameters that shape the validator set that we send to the consumer chain
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PowerShapingParameters {
     /// Corresponds to the percentage of validators that have to validate the chain under the Top N case.
     /// For example, 53 corresponds to a Top 53% chain, meaning that the top 53% provider validators by voting power
@@ -751,7 +753,7 @@ impl ::prost::Name for PowerShapingParameters {
 }
 /// ConsumerIds contains consumer ids of chains
 /// Used so we can easily (de)serialize slices of strings
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ConsumerIds {
     #[prost(string, repeated, tag = "1")]
     pub ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -814,7 +816,7 @@ impl ConsumerPhase {
         }
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgAssignConsumerKey {
     /// \[DEPRECATED\] use `consumer_id` instead
     #[deprecated]
@@ -844,7 +846,7 @@ impl ::prost::Name for MsgAssignConsumerKey {
         "/interchain_security.ccv.provider.v1.MsgAssignConsumerKey".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgAssignConsumerKeyResponse {}
 impl ::prost::Name for MsgAssignConsumerKeyResponse {
     const NAME: &'static str = "MsgAssignConsumerKeyResponse";
@@ -882,7 +884,7 @@ impl ::prost::Name for MsgSubmitConsumerMisbehaviour {
         "/interchain_security.ccv.provider.v1.MsgSubmitConsumerMisbehaviour".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgSubmitConsumerMisbehaviourResponse {}
 impl ::prost::Name for MsgSubmitConsumerMisbehaviourResponse {
     const NAME: &'static str = "MsgSubmitConsumerMisbehaviourResponse";
@@ -927,7 +929,7 @@ impl ::prost::Name for MsgSubmitConsumerDoubleVoting {
         "/interchain_security.ccv.provider.v1.MsgSubmitConsumerDoubleVoting".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgSubmitConsumerDoubleVotingResponse {}
 impl ::prost::Name for MsgSubmitConsumerDoubleVotingResponse {
     const NAME: &'static str = "MsgSubmitConsumerDoubleVotingResponse";
@@ -961,7 +963,7 @@ impl ::prost::Name for MsgUpdateParams {
         "/interchain_security.ccv.provider.v1.MsgUpdateParams".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateParamsResponse {}
 impl ::prost::Name for MsgUpdateParamsResponse {
     const NAME: &'static str = "MsgUpdateParamsResponse";
@@ -974,7 +976,7 @@ impl ::prost::Name for MsgUpdateParamsResponse {
     }
 }
 /// \[DEPRECATED\] Use `MsgCreateConsumer` instead
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConsumerAddition {
     /// the proposed chain-id of the new consumer chain, must be different from all
     /// other consumer chain ids of the executing provider chain.
@@ -1089,7 +1091,7 @@ impl ::prost::Name for MsgConsumerAddition {
     }
 }
 /// \[DEPRECATED\] Use `MsgRemoveConsumer` instead
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConsumerRemoval {
     /// the chain-id of the consumer chain to be stopped
     #[prost(string, tag = "1")]
@@ -1116,7 +1118,7 @@ impl ::prost::Name for MsgConsumerRemoval {
 }
 /// MsgRemoveConsumer defines the message used to remove (and stop) a consumer chain.
 /// If it passes, all the consumer chain's state is eventually removed from the provider chain.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRemoveConsumer {
     /// the consumer id of the consumer chain to be stopped
     #[prost(string, tag = "1")]
@@ -1136,7 +1138,7 @@ impl ::prost::Name for MsgRemoveConsumer {
     }
 }
 /// MsgRemoveConsumerResponse defines response type for MsgRemoveConsumer messages
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgRemoveConsumerResponse {}
 impl ::prost::Name for MsgRemoveConsumerResponse {
     const NAME: &'static str = "MsgRemoveConsumerResponse";
@@ -1152,7 +1154,7 @@ impl ::prost::Name for MsgRemoveConsumerResponse {
 /// mutate the set of denoms accepted by the provider as rewards.
 ///
 /// Note: this replaces ChangeRewardDenomsProposal which is deprecated and will be removed soon
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChangeRewardDenoms {
     /// the list of consumer reward denoms to add
     #[prost(string, repeated, tag = "1")]
@@ -1175,7 +1177,7 @@ impl ::prost::Name for MsgChangeRewardDenoms {
     }
 }
 /// MsgChangeRewardDenomsResponse defines response type for MsgChangeRewardDenoms messages
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgChangeRewardDenomsResponse {}
 impl ::prost::Name for MsgChangeRewardDenomsResponse {
     const NAME: &'static str = "MsgChangeRewardDenomsResponse";
@@ -1187,7 +1189,7 @@ impl ::prost::Name for MsgChangeRewardDenomsResponse {
         "/interchain_security.ccv.provider.v1.MsgChangeRewardDenomsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgOptIn {
     /// \[DEPRECATED\] use `consumer_id` instead
     #[deprecated]
@@ -1219,7 +1221,7 @@ impl ::prost::Name for MsgOptIn {
         "/interchain_security.ccv.provider.v1.MsgOptIn".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgOptInResponse {}
 impl ::prost::Name for MsgOptInResponse {
     const NAME: &'static str = "MsgOptInResponse";
@@ -1231,7 +1233,7 @@ impl ::prost::Name for MsgOptInResponse {
         "/interchain_security.ccv.provider.v1.MsgOptInResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgOptOut {
     /// \[DEPRECATED\] use `consumer_id` instead
     #[deprecated]
@@ -1257,7 +1259,7 @@ impl ::prost::Name for MsgOptOut {
         "/interchain_security.ccv.provider.v1.MsgOptOut".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgOptOutResponse {}
 impl ::prost::Name for MsgOptOutResponse {
     const NAME: &'static str = "MsgOptOutResponse";
@@ -1271,7 +1273,7 @@ impl ::prost::Name for MsgOptOutResponse {
 }
 /// MsgSetConsumerCommissionRate allows validators to set
 /// a per-consumer chain commission rate
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgSetConsumerCommissionRate {
     /// The validator address on the provider
     #[prost(string, tag = "1")]
@@ -1301,7 +1303,7 @@ impl ::prost::Name for MsgSetConsumerCommissionRate {
         "/interchain_security.ccv.provider.v1.MsgSetConsumerCommissionRate".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgSetConsumerCommissionRateResponse {}
 impl ::prost::Name for MsgSetConsumerCommissionRateResponse {
     const NAME: &'static str = "MsgSetConsumerCommissionRateResponse";
@@ -1315,7 +1317,7 @@ impl ::prost::Name for MsgSetConsumerCommissionRateResponse {
     }
 }
 /// \[DEPRECATED\] Use `MsgUpdateConsumer` instead
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConsumerModification {
     /// the title of the proposal
     #[prost(string, tag = "1")]
@@ -1370,7 +1372,7 @@ impl ::prost::Name for MsgConsumerModification {
         "/interchain_security.ccv.provider.v1.MsgConsumerModification".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgConsumerModificationResponse {}
 impl ::prost::Name for MsgConsumerModificationResponse {
     const NAME: &'static str = "MsgConsumerModificationResponse";
@@ -1383,7 +1385,7 @@ impl ::prost::Name for MsgConsumerModificationResponse {
     }
 }
 /// MsgCreateConsumer defines the message that creates a consumer chain
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgCreateConsumer {
     /// Submitter address. If the message is successfully handled, the ownership of
     /// the consumer chain will given to this address.
@@ -1412,7 +1414,7 @@ impl ::prost::Name for MsgCreateConsumer {
     }
 }
 /// MsgCreateConsumerResponse defines response type for MsgCreateConsumer
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgCreateConsumerResponse {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -1428,7 +1430,7 @@ impl ::prost::Name for MsgCreateConsumerResponse {
     }
 }
 /// MsgUpdateConsumer defines the message used to modify a consumer chain.
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateConsumer {
     /// the address of the owner of the consumer chain to be updated
     #[prost(string, tag = "1")]
@@ -1462,7 +1464,7 @@ impl ::prost::Name for MsgUpdateConsumer {
     }
 }
 /// MsgUpdateConsumerResponse defines response type for MsgUpdateConsumer messages
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct MsgUpdateConsumerResponse {}
 impl ::prost::Name for MsgUpdateConsumerResponse {
     const NAME: &'static str = "MsgUpdateConsumerResponse";
@@ -1583,7 +1585,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/AssignConsumerKey",
             );
@@ -1612,7 +1614,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerMisbehaviour",
             );
@@ -1641,7 +1643,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/SubmitConsumerDoubleVoting",
             );
@@ -1670,7 +1672,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/CreateConsumer",
             );
@@ -1699,7 +1701,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/UpdateConsumer",
             );
@@ -1728,7 +1730,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/RemoveConsumer",
             );
@@ -1757,7 +1759,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/UpdateParams",
             );
@@ -1786,7 +1788,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/OptIn",
             );
@@ -1812,7 +1814,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/OptOut",
             );
@@ -1838,7 +1840,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/SetConsumerCommissionRate",
             );
@@ -1867,7 +1869,7 @@ pub mod msg_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Msg/ChangeRewardDenoms",
             );
@@ -2080,7 +2082,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = AssignConsumerKeySvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2126,7 +2128,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SubmitConsumerMisbehaviourSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2172,7 +2174,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SubmitConsumerDoubleVotingSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2215,7 +2217,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = CreateConsumerSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2258,7 +2260,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpdateConsumerSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2301,7 +2303,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = RemoveConsumerSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2344,7 +2346,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UpdateParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2387,7 +2389,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = OptInSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2430,7 +2432,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = OptOutSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2476,7 +2478,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = SetConsumerCommissionRateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2521,7 +2523,7 @@ pub mod msg_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = ChangeRewardDenomsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -2576,7 +2578,7 @@ pub mod msg_server {
         const NAME: &'static str = SERVICE_NAME;
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerGenesisRequest {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -2606,7 +2608,7 @@ impl ::prost::Name for QueryConsumerGenesisResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerGenesisResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainsRequest {
     /// The phase of the consumer chains returned (optional)
     /// Registered=1|Initialized=2|Launched=3|Stopped=4|Deleted=5
@@ -2646,7 +2648,7 @@ impl ::prost::Name for QueryConsumerChainsResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerChainsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct Chain {
     #[prost(string, tag = "1")]
     pub chain_id: ::prost::alloc::string::String,
@@ -2697,7 +2699,7 @@ impl ::prost::Name for Chain {
         "/interchain_security.ccv.provider.v1.Chain".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryValidatorConsumerAddrRequest {
     /// The consensus address of the validator on the provider chain
     #[prost(string, tag = "1")]
@@ -2716,7 +2718,7 @@ impl ::prost::Name for QueryValidatorConsumerAddrRequest {
         "/interchain_security.ccv.provider.v1.QueryValidatorConsumerAddrRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryValidatorConsumerAddrResponse {
     /// The address of the validator on the consumer chain
     #[prost(string, tag = "1")]
@@ -2732,7 +2734,7 @@ impl ::prost::Name for QueryValidatorConsumerAddrResponse {
         "/interchain_security.ccv.provider.v1.QueryValidatorConsumerAddrResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryValidatorProviderAddrRequest {
     /// The consensus address of the validator on the consumer chain
     #[prost(string, tag = "1")]
@@ -2751,7 +2753,7 @@ impl ::prost::Name for QueryValidatorProviderAddrRequest {
         "/interchain_security.ccv.provider.v1.QueryValidatorProviderAddrRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryValidatorProviderAddrResponse {
     /// The address of the validator on the provider chain
     #[prost(string, tag = "1")]
@@ -2767,7 +2769,7 @@ impl ::prost::Name for QueryValidatorProviderAddrResponse {
         "/interchain_security.ccv.provider.v1.QueryValidatorProviderAddrResponse".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryThrottleStateRequest {}
 impl ::prost::Name for QueryThrottleStateRequest {
     const NAME: &'static str = "QueryThrottleStateRequest";
@@ -2779,7 +2781,7 @@ impl ::prost::Name for QueryThrottleStateRequest {
         "/interchain_security.ccv.provider.v1.QueryThrottleStateRequest".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryThrottleStateResponse {
     /// current slash_meter state
     #[prost(int64, tag = "1")]
@@ -2805,7 +2807,7 @@ impl ::prost::Name for QueryThrottleStateResponse {
         "/interchain_security.ccv.provider.v1.QueryThrottleStateResponse".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsRequest {}
 impl ::prost::Name for QueryRegisteredConsumerRewardDenomsRequest {
     const NAME: &'static str = "QueryRegisteredConsumerRewardDenomsRequest";
@@ -2819,7 +2821,7 @@ impl ::prost::Name for QueryRegisteredConsumerRewardDenomsRequest {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryRegisteredConsumerRewardDenomsResponse {
     #[prost(string, repeated, tag = "1")]
     pub denoms: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -2836,7 +2838,7 @@ impl ::prost::Name for QueryRegisteredConsumerRewardDenomsResponse {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryAllPairsValConsAddrByConsumerRequest {
     /// The id of the consumer chain
     #[prost(string, tag = "1")]
@@ -2871,7 +2873,7 @@ impl ::prost::Name for QueryAllPairsValConsAddrByConsumerResponse {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct PairValConAddrProviderAndConsumer {
     /// The consensus address of the validator on the provider chain
     #[prost(string, tag = "1")]
@@ -2892,7 +2894,7 @@ impl ::prost::Name for PairValConAddrProviderAndConsumer {
         "/interchain_security.ccv.provider.v1.PairValConAddrProviderAndConsumer".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryParamsRequest {}
 impl ::prost::Name for QueryParamsRequest {
     const NAME: &'static str = "QueryParamsRequest";
@@ -2919,7 +2921,7 @@ impl ::prost::Name for QueryParamsResponse {
         "/interchain_security.ccv.provider.v1.QueryParamsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainOptedInValidatorsRequest {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -2936,7 +2938,7 @@ impl ::prost::Name for QueryConsumerChainOptedInValidatorsRequest {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainOptedInValidatorsResponse {
     /// The consensus addresses of the validators on the provider chain
     #[prost(string, repeated, tag = "1")]
@@ -2956,7 +2958,7 @@ impl ::prost::Name for QueryConsumerChainOptedInValidatorsResponse {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerValidatorsRequest {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -2971,7 +2973,7 @@ impl ::prost::Name for QueryConsumerValidatorsRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerValidatorsRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerValidatorsValidator {
     /// The consensus address of the validator on the provider chain
     #[prost(string, tag = "1")]
@@ -3048,7 +3050,7 @@ impl ::prost::Name for QueryConsumerValidatorsResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerValidatorsResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainsValidatorHasToValidateRequest {
     /// The consensus address of the validator on the provider chain
     #[prost(string, tag = "1")]
@@ -3066,7 +3068,7 @@ impl ::prost::Name for QueryConsumerChainsValidatorHasToValidateRequest {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainsValidatorHasToValidateResponse {
     #[prost(string, repeated, tag = "1")]
     pub consumer_ids: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
@@ -3083,7 +3085,7 @@ impl ::prost::Name for QueryConsumerChainsValidatorHasToValidateResponse {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryValidatorConsumerCommissionRateRequest {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -3103,7 +3105,7 @@ impl ::prost::Name for QueryValidatorConsumerCommissionRateRequest {
             .into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryValidatorConsumerCommissionRateResponse {
     /// The rate to charge delegators on the consumer chain, as a fraction
     #[prost(string, tag = "1")]
@@ -3121,7 +3123,7 @@ impl ::prost::Name for QueryValidatorConsumerCommissionRateResponse {
             .into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryBlocksUntilNextEpochRequest {}
 impl ::prost::Name for QueryBlocksUntilNextEpochRequest {
     const NAME: &'static str = "QueryBlocksUntilNextEpochRequest";
@@ -3133,7 +3135,7 @@ impl ::prost::Name for QueryBlocksUntilNextEpochRequest {
         "/interchain_security.ccv.provider.v1.QueryBlocksUntilNextEpochRequest".into()
     }
 }
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryBlocksUntilNextEpochResponse {
     /// The number of blocks until the next epoch starts
     #[prost(uint64, tag = "1")]
@@ -3149,7 +3151,7 @@ impl ::prost::Name for QueryBlocksUntilNextEpochResponse {
         "/interchain_security.ccv.provider.v1.QueryBlocksUntilNextEpochResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerIdFromClientIdRequest {
     /// the client id (on the provider) that is tracking the consumer chain
     /// the client id can be found from the consumer chain by querying (i.e., `query ccvconsumer provider-info`)
@@ -3166,7 +3168,7 @@ impl ::prost::Name for QueryConsumerIdFromClientIdRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerIdFromClientIdRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerIdFromClientIdResponse {
     /// the consumer id of the chain associated with this client id
     #[prost(string, tag = "1")]
@@ -3182,7 +3184,7 @@ impl ::prost::Name for QueryConsumerIdFromClientIdResponse {
         "/interchain_security.ccv.provider.v1.QueryConsumerIdFromClientIdResponse".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainRequest {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -3197,7 +3199,7 @@ impl ::prost::Name for QueryConsumerChainRequest {
         "/interchain_security.ccv.provider.v1.QueryConsumerChainRequest".into()
     }
 }
-#[derive(Clone, PartialEq, ::prost::Message)]
+#[derive(Clone, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct QueryConsumerChainResponse {
     #[prost(string, tag = "1")]
     pub consumer_id: ::prost::alloc::string::String,
@@ -3334,7 +3336,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerGenesis",
             );
@@ -3365,7 +3367,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerChains",
             );
@@ -3396,7 +3398,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryValidatorConsumerAddr",
             );
@@ -3427,7 +3429,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryValidatorProviderAddr",
             );
@@ -3458,7 +3460,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryThrottleState",
             );
@@ -3491,7 +3493,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryRegisteredConsumerRewardDenoms",
             );
@@ -3524,7 +3526,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryAllPairsValConsAddrByConsumer",
             );
@@ -3554,7 +3556,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryParams",
             );
@@ -3587,7 +3589,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerChainOptedInValidators",
             );
@@ -3620,7 +3622,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerChainsValidatorHasToValidate",
             );
@@ -3653,7 +3655,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryValidatorConsumerCommissionRate",
             );
@@ -3685,7 +3687,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerValidators",
             );
@@ -3716,7 +3718,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryBlocksUntilNextEpoch",
             );
@@ -3747,7 +3749,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerIdFromClientId",
             );
@@ -3778,7 +3780,7 @@ pub mod query_client {
                         format!("Service was not ready: {}", e.into()),
                     )
                 })?;
-            let codec = tonic::codec::ProstCodec::default();
+            let codec = tonic_prost::ProstCodec::default();
             let path = http::uri::PathAndQuery::from_static(
                 "/interchain_security.ccv.provider.v1.Query/QueryConsumerChain",
             );
@@ -4052,7 +4054,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerGenesisSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4097,7 +4099,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerChainsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4146,7 +4148,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryValidatorConsumerAddrSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4195,7 +4197,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryValidatorProviderAddrSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4240,7 +4242,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryThrottleStateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4292,7 +4294,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryRegisteredConsumerRewardDenomsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4344,7 +4346,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryAllPairsValConsAddrByConsumerSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4387,7 +4389,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryParamsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4439,7 +4441,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerChainOptedInValidatorsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4493,7 +4495,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerChainsValidatorHasToValidateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4545,7 +4547,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryValidatorConsumerCommissionRateSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4593,7 +4595,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerValidatorsSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4642,7 +4644,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryBlocksUntilNextEpochSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4694,7 +4696,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerIdFromClientIdSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4739,7 +4741,7 @@ pub mod query_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = QueryConsumerChainSvc(inner);
-                        let codec = tonic::codec::ProstCodec::default();
+                        let codec = tonic_prost::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
                                 accept_compression_encodings,
@@ -4872,7 +4874,7 @@ impl ::prost::Name for ConsumerState {
 }
 /// ValsetUpdateIdToHeight defines the genesis information for the mapping
 /// of each valset update id to a block height
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, ::prost::Message)]
 pub struct ValsetUpdateIdToHeight {
     #[prost(uint64, tag = "1")]
     pub valset_update_id: u64,

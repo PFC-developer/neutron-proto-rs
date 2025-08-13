@@ -129,7 +129,7 @@ impl CompileCmd {
         let mut config = prost_build::Config::new();
         config.enable_type_names();
 
-        tonic_build::configure()
+        tonic_prost_build::configure()
             .build_transport(transport)
             .build_client(true)
             .compile_well_known_types(true)
@@ -169,7 +169,7 @@ impl CompileCmd {
             .type_attribute(".ibc.core.connection.v1.Counterparty", attrs_jsonschema)
             .type_attribute(".ibc.core.connection.v1.Version", attrs_jsonschema)
             .type_attribute(".ibc.lightclients.wasm.v1.ClientMessage", attrs_jsonschema)
-            .compile_protos_with_config(config, &protos, &proto_includes_paths)?;
+            .compile_with_config(config, &protos, &proto_includes_paths)?;
 
         println!("[info ] Protos compiled successfully");
 
