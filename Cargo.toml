@@ -1,5 +1,5 @@
 [package]
-name         = "ibc-proto"
+name         = "neutron-proto"
 version      = "0.52.1"
 authors      = ["Informal Systems <hello@informal.systems>"]
 edition      = "2021"
@@ -10,7 +10,7 @@ categories   = ["cryptography::cryptocurrencies", "encoding", "no-std"]
 keywords     = ["blockchain", "cosmos", "tendermint", "ibc", "proto"]
 exclude      = ["definitions", "tools", ".changelog", ".github"]
 description  = """
-    ibc-proto provides Cosmos SDK & IBC Protocol Buffers definitions
+    neutron-proto provides Cosmos SDK Protocol Buffers definitions for the neutron chain. base on ibc-proto-rs
 """
 rust-version = "1.88.0"
 
@@ -21,7 +21,7 @@ members = [
 ]
 
 [lib]
-name    = "ibc_proto"
+name    = "neutron_proto"
 path    = "src/lib.rs"
 doctest = false
 

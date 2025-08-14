@@ -17,16 +17,9 @@ pub struct CloneCmd {
     sdk_tag: Option<String>,
 
     /// commit to checkout
-    #[argh(option, short = 'i')]
-    ibc_go_commit: Option<String>,
-
-    /// commit to checkout for the SDK repo
-    #[argh(option, short = 's')]
-    ics_commit: Option<String>,
-
-    /// commit to checkout for the nft-transfer repo
     #[argh(option, short = 'n')]
-    nft_commit: Option<String>,
+    neutron_go_commit: Option<String>,
+
 
     /// where to checkout the repository
     #[argh(option, short = 'o')]
@@ -34,9 +27,7 @@ pub struct CloneCmd {
 }
 
 pub const COSMOS_SDK_URL: &str = "https://github.com/cosmos/cosmos-sdk";
-pub const IBC_GO_URL: &str = "https://github.com/cosmos/ibc-go";
-pub const ICS_URL: &str = "https://github.com/cosmos/interchain-security";
-pub const NFT_TRANSFER_URL: &str = "https://github.com/bianjieai/nft-transfer";
+pub const NEUTRON_GO_URL: &str = "https://github.com/neutron-org/neutron";
 
 impl CloneCmd {
     pub fn validate(&self) {
@@ -52,23 +43,15 @@ impl CloneCmd {
         sdk_path
     }
 
-    pub fn ibc_subdir(&self) -> PathBuf {
-        let mut ibc_path = self.out.clone();
-        ibc_path.push("ibc/");
-        ibc_path
+    // might need to modify this to produce a set of paths
+    pub fn neutron_subdir(&self) -> PathBuf {
+        let mut neutron_path = self.out.clone();
+        neutron_path.push("neutron/");
+        neutron_path
     }
 
-    pub fn ics_subdir(&self) -> PathBuf {
-        let mut ics_path = self.out.clone();
-        ics_path.push("ics/");
-        ics_path
-    }
 
-    pub fn nft_subdir(&self) -> PathBuf {
-        let mut nft_path = self.out.clone();
-        nft_path.push("nft/");
-        nft_path
-    }
+
 
     pub fn run(&self) {
         self.validate();
@@ -109,105 +92,37 @@ impl CloneCmd {
             });
         }
 
-        println!("[info ] Cloning cosmos/ibc-go repository...");
+        println!("[info ] Cloning cosmos/neutron-go repository...");
 
-        match &self.ibc_go_commit {
-            Some(ibc_go_commit) => {
-                let ibc_path = self.ibc_subdir();
-                let ibc_repo = if ibc_path.exists() {
-                    println!("[info ] Found IBC Go source at '{}'", ibc_path.display());
+        match &self.neutron_go_commit {
+            Some(neutron_go_commit) => {
+                let neutron_path = self.neutron_subdir();
+                let neutron_repo = if neutron_path.exists() {
+                    println!("[info ] Found IBC Go source at '{}'", neutron_path.display());
 
-                    Repository::open(&ibc_path).unwrap_or_else(|e| {
+                    Repository::open(&neutron_path).unwrap_or_else(|e| {
                         println!("[error] Failed to open repository: {}", e);
                         process::exit(1)
                     })
                 } else {
-                    Repository::clone(IBC_GO_URL, &ibc_path).unwrap_or_else(|e| {
-                        println!("[error] Failed to clone the IBC Go repository: {}", e);
+                    Repository::clone(NEUTRON_GO_URL, &neutron_path).unwrap_or_else(|e| {
+                        println!("[error] Failed to clone the Neutron Go repository: {}", e);
                         process::exit(1)
                     })
                 };
 
-                println!("[info ] Cloned at '{}'", ibc_path.display());
-                checkout_commit(&ibc_repo, ibc_go_commit).unwrap_or_else(|e| {
+                println!("[info ] Cloned at '{}'", neutron_path.display());
+                checkout_commit(&neutron_repo, neutron_go_commit).unwrap_or_else(|e| {
                     println!(
-                        "[error] Failed to checkout IBC Go commit {}: {}",
-                        ibc_go_commit, e
+                        "[error] Failed to checkout NEUTRON Go commit {}: {}",
+                        neutron_go_commit, e
                     );
                     process::exit(1)
                 });
             }
             None => {
                 println!(
-                    "[info ] No `-i`/`--ibc_go_commit` option passed. Skipping the IBC Go repo."
-                )
-            }
-        }
-        println!("[info ] Cloning cosmos/ics repository...");
-
-        match &self.ics_commit {
-            Some(ics_commit) => {
-                let ics_path = self.ics_subdir();
-                let ics_repo = if ics_path.exists() {
-                    println!("[info ] Found ICS source at '{}'", ics_path.display());
-
-                    Repository::open(&ics_path).unwrap_or_else(|e| {
-                        println!("[error] Failed to open repository: {}", e);
-                        process::exit(1)
-                    })
-                } else {
-                    Repository::clone(ICS_URL, &ics_path).unwrap_or_else(|e| {
-                        println!("[error] Failed to clone the ICS repository: {}", e);
-                        process::exit(1)
-                    })
-                };
-
-                println!("[info ] Cloned at '{}'", ics_path.display());
-                checkout_commit(&ics_repo, ics_commit).unwrap_or_else(|e| {
-                    println!(
-                        "[error] Failed to checkout ICS commit {}: {}",
-                        ics_commit, e
-                    );
-                    process::exit(1)
-                });
-            }
-            None => {
-                println!("[info ] No `-i`/`--ics_commit` option passed. Skipping the ICS repo.")
-            }
-        }
-
-        match &self.nft_commit {
-            Some(nft_commit) => {
-                let nft_path = self.nft_subdir();
-                let nft_repo = if nft_path.exists() {
-                    println!(
-                        "[info ] Found nft-transfer source at '{}'",
-                        nft_path.display()
-                    );
-
-                    Repository::open(&nft_path).unwrap_or_else(|e| {
-                        println!("[error] Failed to open repository: {}", e);
-                        process::exit(1)
-                    })
-                } else {
-                    Repository::clone(NFT_TRANSFER_URL, &nft_path).unwrap_or_else(|e| {
-                        println!("[error] Failed to clone the nft-transfer repository: {}", e);
-                        process::exit(1)
-                    })
-                };
-
-                println!("[info ] Cloned at '{}'", nft_path.display());
-                checkout_commit(&nft_repo, nft_commit).unwrap_or_else(|e| {
-                    println!(
-                        "[error] Failed to checkout nft-transfer commit {}: {}",
-                        nft_commit, e
-                    );
-                    process::exit(1)
-                });
-            }
-            None => {
-                println!(
-                    "[info ] No `-n`/`--nft-commit` option passed. Skipping the nft-transfer repo."
+                    "[info ] No `-n`/`--neutron_go_commit` option passed. Skipping the Neutron Go repo."
                 )
             }
         }

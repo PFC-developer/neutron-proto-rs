@@ -14,17 +14,9 @@ pub struct CompileCmd {
     /// generate transport client/server code
     transport: bool,
 
-    #[argh(option, short = 'i')]
-    /// path to the IBC-Go proto files
-    ibc: PathBuf,
-
-    #[argh(option, short = 'c')]
-    /// path to the Cosmos ICS proto files
-    ics: PathBuf,
-
     #[argh(option, short = 'n')]
-    /// path to the nft-transfer proto files
-    nft: PathBuf,
+    /// path to the neutron-Go proto files
+    neutron: PathBuf,
 
     #[argh(option, short = 'o')]
     /// path to output the generated Rust sources into
@@ -33,11 +25,9 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        Self::compile_ibc_protos(
+        Self::compile_neutron_protos(
             self.transport,
-            self.ibc.as_ref(),
-            self.ics.as_ref(),
-            self.nft.as_ref(),
+            self.neutron.as_ref(),
             self.out.as_ref(),
         )
         .unwrap_or_else(|e| {
@@ -58,15 +48,13 @@ impl CompileCmd {
         println!("[info ] Done!");
     }
 
-    fn compile_ibc_protos(
+    fn compile_neutron_protos(
         transport: bool,
-        ibc_dir: &Path,
-        ics_dir: &Path,
-        nft_dir: &Path,
+        neutron_dir: &Path,
         out_dir: &Path,
     ) -> Result<(), Box<dyn std::error::Error>> {
         println!(
-            "[info ] Compiling IBC .proto files to Rust into '{}'...",
+            "[info ] Compiling Neutron .proto files to Rust into '{}'...",
             out_dir.display()
         );
 
@@ -75,22 +63,19 @@ impl CompileCmd {
         // Paths
         let proto_paths = [
             root.join("../../definitions/mock"),
-            root.join("../../definitions/ibc/lightclients/localhost/v1"),
-            root.join("../../definitions/stride/interchainquery/v1"),
-            ibc_dir.join("ibc"),
-            ics_dir.join("interchain_security/ccv/v1"),
-            ics_dir.join("interchain_security/ccv/provider"),
-            ics_dir.join("interchain_security/ccv/consumer"),
-            nft_dir.join("ibc"),
+            //root.join("../../definitions/ibc/lightclients/localhost/v1"),
+            //root.join("../../definitions/stride/interchainquery/v1"),
+            neutron_dir.join("neutron"),
+
+
         ];
 
         let proto_includes_paths = [
-            ibc_dir.to_path_buf(),
-            ics_dir.to_path_buf(),
-            nft_dir.to_path_buf(),
+            neutron_dir.to_path_buf(),
+
             root.join("../../definitions/mock"),
-            root.join("../../definitions/ibc/lightclients/localhost/v1"),
-            root.join("../../definitions/stride/interchainquery/v1"),
+            //root.join("../../definitions/ibc/lightclients/localhost/v1"),
+            //root.join("../../definitions/stride/interchainquery/v1"),
         ];
 
         // List available proto files
@@ -204,7 +189,7 @@ impl CompileCmd {
         );
 
         const PATCHES: &[(&str, &[(&str, &str)])] = &[
-            (
+         /*   (
                 "ibc.applications.transfer.v1.rs",
                 &[(
                     "The denomination trace (\\[port_id\\]/[channel_id])+/\\[denom\\]",
@@ -217,7 +202,7 @@ impl CompileCmd {
                     "The class trace (\\[port_id\\]/[channel_id])+/\\[denom\\]",
                     "The class trace `([port_id]/[channel_id])+/[class]`",
                 )],
-            ),
+            ),*/
         ];
 
         for (file, patches) in PATCHES {
@@ -246,6 +231,7 @@ impl CompileCmd {
                 "#[cfg(feature = \"transport\")]\n    \
                 impl${1}tonic::transport${2}",
             ),
+            ( "super::super::cosmos::", "cosmos_sdk_proto::cosmos::")
         ];
 
         let files_iter = WalkDir::new(out_dir)
