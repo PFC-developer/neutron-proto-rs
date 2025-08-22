@@ -25,15 +25,11 @@ pub struct CompileCmd {
 
 impl CompileCmd {
     pub fn run(&self) {
-        Self::compile_neutron_protos(
-            self.transport,
-            self.neutron.as_ref(),
-            self.out.as_ref(),
-        )
-        .unwrap_or_else(|e| {
-            eprintln!("[error] failed to compile protos: {}", e);
-            process::exit(1);
-        });
+        Self::compile_neutron_protos(self.transport, self.neutron.as_ref(), self.out.as_ref())
+            .unwrap_or_else(|e| {
+                eprintln!("[error] failed to compile protos: {}", e);
+                process::exit(1);
+            });
 
         Self::patch_generated_files(self.out.as_ref()).unwrap_or_else(|e| {
             eprintln!("[error] failed to patch generated files: {}", e);
@@ -66,13 +62,10 @@ impl CompileCmd {
             //root.join("../../definitions/ibc/lightclients/localhost/v1"),
             //root.join("../../definitions/stride/interchainquery/v1"),
             neutron_dir.join("neutron"),
-
-
         ];
 
         let proto_includes_paths = [
             neutron_dir.to_path_buf(),
-
             root.join("../../definitions/mock"),
             //root.join("../../definitions/ibc/lightclients/localhost/v1"),
             //root.join("../../definitions/stride/interchainquery/v1"),
@@ -231,7 +224,7 @@ impl CompileCmd {
                 "#[cfg(feature = \"transport\")]\n    \
                 impl${1}tonic::transport${2}",
             ),
-            ( "super::super::cosmos::", "cosmos_sdk_proto::cosmos::")
+            ("super::super::cosmos::", "cosmos_sdk_proto::cosmos::"),
         ];
 
         let files_iter = WalkDir::new(out_dir)

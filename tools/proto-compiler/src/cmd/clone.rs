@@ -20,7 +20,6 @@ pub struct CloneCmd {
     #[argh(option, short = 'n')]
     neutron_go_commit: Option<String>,
 
-
     /// where to checkout the repository
     #[argh(option, short = 'o')]
     out: PathBuf,
@@ -49,9 +48,6 @@ impl CloneCmd {
         neutron_path.push("neutron/");
         neutron_path
     }
-
-
-
 
     pub fn run(&self) {
         self.validate();
@@ -98,7 +94,10 @@ impl CloneCmd {
             Some(neutron_go_commit) => {
                 let neutron_path = self.neutron_subdir();
                 let neutron_repo = if neutron_path.exists() {
-                    println!("[info ] Found IBC Go source at '{}'", neutron_path.display());
+                    println!(
+                        "[info ] Found IBC Go source at '{}'",
+                        neutron_path.display()
+                    );
 
                     Repository::open(&neutron_path).unwrap_or_else(|e| {
                         println!("[error] Failed to open repository: {}", e);

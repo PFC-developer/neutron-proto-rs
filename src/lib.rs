@@ -50,7 +50,7 @@ pub use cosmos_sdk_proto::cosmos;
 pub use ics23;
 
 pub mod neutron {
- 
+
     pub mod dex {
         pub mod transfer {
             pub mod v1 {
@@ -83,10 +83,6 @@ pub mod neutron {
                 #[cfg(feature = "serde")]
                 include_proto!("neutron.cron.v1.serde.rs");
             }
-
-
         }
-
     }
 }
-
