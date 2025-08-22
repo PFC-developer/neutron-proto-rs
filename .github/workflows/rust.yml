@@ -7,7 +7,8 @@ on:
       - src/**
       - tools/**
   push:
-    branches: main
+    branches:
+      - main
     paths:
       - .github/workflows/rust.yml
       - Cargo.toml
@@ -79,7 +80,7 @@ jobs:
   check-each-feature:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -94,7 +95,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -113,7 +114,7 @@ jobs:
   test-build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -131,7 +132,7 @@ jobs:
   doc:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
@@ -148,7 +149,7 @@ jobs:
   publish-dry-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - uses: arduino/setup-protoc@v2
       - uses: actions-rs/toolchain@v1
         with:
